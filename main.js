@@ -4,6 +4,10 @@
     'vibration.enabled': false
   }
 
+  function isScreenDown(beta, gamma) {
+    retrun (Math.abs(beta) < 10 && Math.abs(gamma) > 170);
+  }
+
   function resumeSettings() {
     var results = JSON.parse(localStorage.getItem('settings-keys'));
     navigator.mozSettings.createLock().set({
@@ -23,6 +27,20 @@
       navigator.mozSettings.createLock().set(DEFAULT_SETTIGNS);
     });
 
+  }
+
+  function handleOrientation(event) {
+    var beta = event.beta;
+    var gamma = event.gamma;
+
+    if (isScreenDown(beta, gamma)) {
+      dontBotherMe();
+      window.removeEventListener("deviceorientation", handleOrientation);
+    };
+  }
+
+  function checkDeviceOrientation() {
+    window.addEventListener("deviceorientation", handleOrientation, true);
   }
 
   if (document.readyState !== 'loading') {
