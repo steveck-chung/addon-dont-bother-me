@@ -1,0 +1,28 @@
+{
+  "name": "Dont-bother-me",
+  "description": "Mute and disable vibration while phone screen face down",
+  "developer": {
+    "name": "Steve Chung"
+  },
+  "locales": {
+    "en-US": {
+      "name": "Don't Bother Me",
+      "description": "Mute and disable vibration while phone screen face down"
+    }
+  },
+  "default_locale": "en-US",
+  "package_path": "application.zip",
+  "role": "addon",
+  "type": "certified",
+  "customizations": [
+    {
+      "filter": "app://settings.gaiamobile.org",
+      "scripts": [
+        "main.js"
+      ]
+    }
+  ],
+  "icons": {
+    "icon": "/icons/icon.png"
+  }
+}
