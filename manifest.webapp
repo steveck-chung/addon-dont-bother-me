@@ -23,6 +23,6 @@
     }
   ],
   "icons": {
-    "icon": "/icons/icon.png"
+    "128": "/icons/mute_128.png"
   }
 }
