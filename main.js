@@ -5,7 +5,7 @@
   }
 
   function isScreenDown(beta, gamma) {
-    retrun (Math.abs(beta) < 10 && Math.abs(gamma) > 170);
+    return (Math.abs(beta) > 170 && Math.abs(gamma) < 10);
   }
 
   function resumeSettings() {
@@ -21,8 +21,8 @@
       (key) => navigator.mozSettings.createLock().get(key)
     );
 
-    Promise,all(settingsPromises).then((values) =>
-      localStorage.setItem('settings-keys', JSON.stringify(values));
+    Promise.all(settingsPromises).then((values) =>
+      localStorage.setItem('settings-keys', JSON.stringify(values))
     ).then(() => {
       navigator.mozSettings.createLock().set(DEFAULT_SETTIGNS);
     });
@@ -33,8 +33,11 @@
     var beta = event.beta;
     var gamma = event.gamma;
 
+    console.log('@@@ beta :' + beta);
+    console.log('@@@ gamma :' + gamma);
     if (isScreenDown(beta, gamma)) {
-      dontBotherMe();
+      console.log('@@@ isScreenDown :');
+      // dontBotherMe();
       window.removeEventListener("deviceorientation", handleOrientation);
     };
   }
@@ -44,14 +47,15 @@
   }
 
   if (document.readyState !== 'loading') {
-    dontBotherMe();
+    console.log('@@@ not loading');
+    checkDeviceOrientation();
   } else {
     document.addEventListener('readystatechange',
       function readyStateChange() {
         if (document.readyState == 'interactive') {
-          document.removeEventListener('readystatechange',
-            readyStateChange);
-          dontBotherMe();
+          console.log('@@@ interactive');
+          document.removeEventListener('readystatechange', readyStateChange);
+          checkDeviceOrientation();
         }
       });
   }
